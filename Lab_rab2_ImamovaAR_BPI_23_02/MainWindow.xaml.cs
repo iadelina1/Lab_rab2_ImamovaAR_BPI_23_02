@@ -2,9 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using Lab_rab2_ImamovaAR_BPI_23_02;
-using System.Windows.Media.Imaging;
-using System.Windows.Interop;
-using Lab_rab2_ImamovaAR_BPI_23_02.Properties;
 
 namespace Lab_rab2_ImamovaAR_BPI_23_02
 {
@@ -13,7 +10,6 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
         public MainWindow()
         {
             InitializeComponent();
-            LoadResxImages();
         }
 
         private void Calc_Click(object sender, RoutedEventArgs e)
@@ -89,24 +85,6 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
             {
                 MessageBox.Show($"Произошла ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void LoadResxImages()
-        {
-            Func<System.Drawing.Bitmap, BitmapSource> ConvertBitmap = (bitmap) =>
-            {
-                return Imaging.CreateBitmapSourceFromHBitmap(
-                    bitmap.GetHbitmap(),
-                    IntPtr.Zero,
-                    System.Windows.Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
-            };
-
-            if (Properties.Resources.Formula1 != null) ImageP1.Source = ConvertBitmap(Properties.Resources.Formula1);
-            if (Properties.Resources.Formula2 != null) ImageP2.Source = ConvertBitmap(Properties.Resources.Formula2);
-            if (Properties.Resources.Formula3 != null) ImageP3.Source = ConvertBitmap(Properties.Resources.Formula3);
-            if (Properties.Resources.Formula4 != null) ImageP4.Source = ConvertBitmap(Properties.Resources.Formula4);
-            if (Properties.Resources.Formula5 != null) ImageP5.Source = ConvertBitmap(Properties.Resources.Formula5);
         }
 
         private void HideAllResults()

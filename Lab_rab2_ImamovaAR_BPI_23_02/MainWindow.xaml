@@ -1,10 +1,10 @@
 ﻿<Window x:Class="Lab_rab2_ImamovaAR_BPI_23_02.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Лабораторная работа 2"
+        Title="Лабораторная работа 2 Имамова"
         Width="700"
         Height="Auto"
-        MinHeight="550"
+        MinHeight="50"
         MinWidth="650"
         WindowStartupLocation="CenterScreen"
         SizeToContent="Height">
@@ -26,56 +26,85 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0" Grid.Column="0" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
-                <StackPanel>
-                    <RadioButton Name="Radio1" GroupName="FormulaGroup" IsChecked="True" Margin="0,0,0,5"/>
-                    <Image Name="ImageP1" Height="30" Margin="0,0,0,5" HorizontalAlignment="Left"/>
-                    <WrapPanel>
-                        <Label Content="a:"/>
-                        <TextBox Text="0,00" Width="70" Name="R1TextA" Margin="0,0,10,0"/>
-                        <Label Content="f:"/>
-                        <ComboBox SelectedIndex="0" Name="R1ComboF" Width="70">
-                            <ComboBoxItem Content="4"/>
-                            <ComboBoxItem Content="5"/>
-                            <ComboBoxItem Content="6"/>
-                            <ComboBoxItem Content="7"/>
-                            <ComboBoxItem Content="8"/>
-                            <ComboBoxItem Content="9"/>
-                        </ComboBox>
-                    </WrapPanel>
-                    <TextBlock Name="ResultText1" Visibility="Collapsed" FontWeight="Bold" Foreground="Blue" Margin="0,5,0,0"/>
-                </StackPanel>
+                <GroupBox Header="Формула 1 (sin(f*a))" BorderBrush="Gray">
+                    <StackPanel>
+                        <RadioButton Name="Radio1" GroupName="FormulaGroup" IsChecked="True" Margin="0,0,0,5"/>
+                        <Image Name="ImageP1" Height="30" Margin="0,0,0,5" HorizontalAlignment="Left"
+                               Source="/Resources/formula1.png"/>
+
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="a:" Grid.Column="0"/>
+                            <TextBox Text="0,00" Width="70" Name="R1TextA" Margin="0,0,10,0" Grid.Column="1" HorizontalAlignment="Left"/>
+
+                            <Label Content="f:" Grid.Column="2"/>
+                            <ComboBox SelectedIndex="0" Name="R1ComboF" Width="70" Grid.Column="3" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="4"/>
+                                <ComboBoxItem Content="5"/>
+                                <ComboBoxItem Content="6"/>
+                                <ComboBoxItem Content="7"/>
+                                <ComboBoxItem Content="8"/>
+                                <ComboBoxItem Content="9"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <TextBlock Name="ResultText1" Visibility="Collapsed" FontWeight="Bold" Foreground="HotPink" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </GroupBox>
             </Border>
 
             <Border Grid.Row="0" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
-                <StackPanel>
-                    <RadioButton Name="Radio2" GroupName="FormulaGroup" Content="" Margin="0,0,0,5"/>
-                    <Image Name="ImageP2" Height="23" Margin="0,0,0,5" HorizontalAlignment="Left"/>
-                    <WrapPanel>
-                        <Label Content="a:"/>
-                        <TextBox Text="0,00" Width="70" Name="R2TextA" Margin="0,0,10,0"/>
-                        <Label Content="b:"/>
-                        <TextBox Text="0,00" Width="70" Name="R2TextB" Margin="0,0,10,0"/>
-                        <Label Content="f:"/>
-                        <ComboBox Name="R2ComboF" SelectedIndex="0" Width="70">
-                            <ComboBoxItem Content="10"/>
-                            <ComboBoxItem Content="20"/>
-                            <ComboBoxItem Content="30"/>
-                            <ComboBoxItem Content="40"/>
-                        </ComboBox>
-                    </WrapPanel>
-                    <TextBlock Name="ResultText2" Visibility="Collapsed" FontWeight="Bold" Foreground="Blue" Margin="0,5,0,0"/>
-                </StackPanel>
+                <GroupBox Header="Формула 2 (cos(f*a) + sin(f*b))" BorderBrush="LightGray">
+                    <StackPanel>
+                        <RadioButton Name="Radio2" GroupName="FormulaGroup" Margin="0,0,0,5"/>
+                        <Image Name="ImageP2" Height="23" Margin="0,0,0,5" HorizontalAlignment="Left"
+                               Source="/Resources/Formula2.png"/>
+
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="a:" Grid.Column="0"/>
+                            <TextBox Text="0,00" Width="70" Name="R2TextA" Margin="0,0,10,0" Grid.Column="1" HorizontalAlignment="Left"/>
+
+                            <Label Content="b:" Grid.Column="2"/>
+                            <TextBox Text="0,00" Width="70" Name="R2TextB" Margin="0,0,10,0" Grid.Column="3" HorizontalAlignment="Left"/>
+
+                            <Label Content="f:" Grid.Column="4"/>
+                            <ComboBox Name="R2ComboF" SelectedIndex="0" Width="70" Grid.Column="5" HorizontalAlignment="Left">
+                                <ComboBoxItem Content="10"/>
+                                <ComboBoxItem Content="20"/>
+                                <ComboBoxItem Content="30"/>
+                                <ComboBoxItem Content="40"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <TextBlock Name="ResultText2" Visibility="Collapsed" FontWeight="Bold" Foreground="HotPink" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </GroupBox>
             </Border>
 
             <Border Grid.Row="1" Grid.Column="0" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
                 <StackPanel>
                     <RadioButton Name="Radio3" GroupName="FormulaGroup" Margin="0,0,0,5"/>
-                    <Image Name="ImageP3" Height="30" Margin="0,0,0,5" HorizontalAlignment="Left"/>
+                    <Image Name="ImageP3" Height="30" Margin="0,0,0,5" HorizontalAlignment="Left"
+                           Source="/Resources/Formula3.png"/>
                     <WrapPanel>
                         <Label Content="a:"/>
                         <TextBox Text="0,00" Width="50" Name="R3TextA" Margin="0,0,5,0"/>
@@ -93,30 +122,39 @@
                             <ComboBoxItem Content="1"/>
                         </ComboBox>
                     </WrapPanel>
-                    <TextBlock Name="ResultText3" Visibility="Collapsed" FontWeight="Bold" Foreground="Blue" Margin="0,5,0,0"/>
+                    <TextBlock Name="ResultText3" Visibility="Collapsed" FontWeight="Bold" Foreground="HotPink" Margin="0,5,0,0"/>
                 </StackPanel>
             </Border>
 
             <Border Grid.Row="1" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
                 <StackPanel>
                     <RadioButton Name="Radio4" GroupName="FormulaGroup" Margin="0,0,0,5"/>
-                    <Image Name="ImageP4" Height="60" Margin="0,0,0,5" HorizontalAlignment="Left"/>
+                    <Image Name="ImageP4" Height="60" Margin="0,0,0,5" HorizontalAlignment="Left"
+                           Source="/Resources/Formula4.png"/>
                     <WrapPanel VerticalAlignment="Center">
                         <Label Content="c:"/>
-                        <ComboBox SelectedIndex="0" Name="R4ComboC" Width="70" Margin="0,0,10,0"/>
+                        <ComboBox SelectedIndex="0" Name="R4ComboC" Width="70" Margin="0,0,10,0">
+                            <ComboBoxItem Content="0"/>
+                            <ComboBoxItem Content="1"/>
+                            <ComboBoxItem Content="2"/>
+                            <ComboBoxItem Content="3"/>
+                            <ComboBoxItem Content="4"/>
+                            <ComboBoxItem Content="5"/>
+                        </ComboBox>
                         <Label Content="d:"/>
                         <TextBox Text="0,00" Width="70" Name="R4TextD" Margin="0,0,10,0"/>
                         <Label Content="a:"/>
                         <TextBox Text="0,00" Width="70" Name="R4TextA"/>
                     </WrapPanel>
-                    <TextBlock Name="ResultText4" Visibility="Collapsed" FontWeight="Bold" Foreground="Blue" Margin="0,5,0,0"/>
+                    <TextBlock Name="ResultText4" Visibility="Collapsed" FontWeight="Bold" Foreground="HotPink" Margin="0,5,0,0"/>
                 </StackPanel>
             </Border>
 
             <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
                 <StackPanel>
                     <RadioButton Name="Radio5" GroupName="FormulaGroup" Margin="0,0,0,5"/>
-                    <Image Name="ImageP5" Height="40" Margin="0,0,0,5" HorizontalAlignment="Left"/>
+                    <Image Name="ImageP5" Height="40" Margin="0,0,0,5" HorizontalAlignment="Left"
+                           Source="/Resources/Formula5.png"/>
                     <WrapPanel>
                         <Label Content="N:"/>
                         <TextBox Text="10" Width="40" Name="R5TextN" Margin="0,0,10,0"/>
@@ -131,7 +169,7 @@
                         <Label Content="y:"/>
                         <TextBox Text="1,0" Width="40" Name="R5TextY"/>
                     </WrapPanel>
-                    <TextBlock Name="ResultText5" Visibility="Collapsed" FontWeight="Bold" Foreground="Blue" Margin="0,5,0,0"/>
+                    <TextBlock Name="ResultText5" Visibility="Collapsed" FontWeight="Bold" Foreground="HotPink" Margin="0,5,0,0"/>
                 </StackPanel>
             </Border>
 

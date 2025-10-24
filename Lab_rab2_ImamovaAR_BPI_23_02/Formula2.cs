@@ -11,6 +11,7 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
         public double A { get; set; }
         public double B { get; set; }
         public double F { get; set; }
+        public string ImagePath => "/Resources/Formula2.png";
 
         public Formula2(double a, double b, double f)
         {

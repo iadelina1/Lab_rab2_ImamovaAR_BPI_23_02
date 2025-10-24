@@ -10,6 +10,7 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
         public double X { get; set; }
         public double F { get; set; }
         public double Y { get; set; }
+        public string ImagePath => "/Resources/Formula5.png";
 
         public Formula5(int n, int k, double p, double x, double f, double y)
         {
