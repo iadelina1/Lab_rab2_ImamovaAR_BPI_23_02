@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Lab_rab2_ImamovaAR_BPI_23_02
 {
@@ -10,6 +12,7 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
         public MainWindow()
         {
             InitializeComponent();
+            ApplyTheme("LightTheme.xaml");
         }
 
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -165,6 +168,39 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
             ResultText3.Visibility = Visibility.Collapsed;
             ResultText4.Visibility = Visibility.Collapsed;
             ResultText5.Visibility = Visibility.Collapsed;
+        }
+        private void ChangeTheme_Click(object sender, RoutedEventArgs e)
+        {
+            Button themeButton = sender as Button;
+            if (themeButton == null) return;
+            string themeUri = themeButton.Tag.ToString();
+            ApplyTheme(themeUri);
+        }
+
+        private void ApplyTheme(string themeUri)
+        {
+            ResourceDictionary newTheme = new ResourceDictionary()
+            {
+                Source = new Uri(themeUri, UriKind.Relative)
+            };
+
+            var dictionaries = this.Resources.MergedDictionaries;
+            var oldTheme = dictionaries.FirstOrDefault(d => d.Source != null && d.Source.OriginalString.Contains("Theme.xaml"));
+            if (oldTheme != null)
+            {
+                dictionaries.Remove(oldTheme);
+            }
+            dictionaries.Add(newTheme);
+            if (this.Resources.Contains("WindowBackgroundBrush"))
+            {
+                this.Background = (Brush)this.Resources["WindowBackgroundBrush"];
+            }
+        }
+        
+
+        private void R1TextA_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
