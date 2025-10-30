@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using Lab_rab2_ImamovaAR_BPI_23_02;
+using System.Windows.Input;
 
 namespace Lab_rab2_ImamovaAR_BPI_23_02
 {
@@ -11,6 +11,63 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
         {
             InitializeComponent();
         }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = false;
+                return;
+            }
+
+            TextBox textBox = sender as TextBox;
+
+            if (e.Text == "." || e.Text == ",")
+            {
+                if (textBox.Text.Contains(".") || textBox.Text.Contains(","))
+                {
+                    e.Handled = true;
+                    return;
+                }
+                e.Handled = false;
+                return;
+            }
+
+            if (e.Text == "-")
+            {
+                if (textBox.SelectionStart == 0 && !textBox.Text.Contains("-"))
+                {
+                    e.Handled = false;
+                    return;
+                }
+                e.Handled = true;
+                return;
+            }
+
+            e.Handled = true;
+        }
+
+        private void TextBox_PreviewOnlyDigits(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
+        }
+        private void Input_GotFocus1(object sender, RoutedEventArgs e) { Radio1.IsChecked = true; }
+        private void Input_GotFocus2(object sender, RoutedEventArgs e) { Radio2.IsChecked = true; }
+        private void Input_GotFocus3(object sender, RoutedEventArgs e) { Radio3.IsChecked = true; }
+        private void Input_GotFocus4(object sender, RoutedEventArgs e) { Radio4.IsChecked = true; }
+        private void Input_GotFocus5(object sender, RoutedEventArgs e) { Radio5.IsChecked = true; }
+
 
         private void Calc_Click(object sender, RoutedEventArgs e)
         {
@@ -61,12 +118,26 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
                 }
                 else if (Radio5.IsChecked.GetValueOrDefault())
                 {
-                    int n = Int32.Parse(R5TextN.Text);
-                    int k = Int32.Parse(R5TextK.Text);
+                    int n;
+                    int k;
+
+                    if (!Int32.TryParse(R5TextN.Text, out n) || !Int32.TryParse(R5TextK.Text, out k))
+                    {
+                        MessageBox.Show("N и K должны быть целыми числами.", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    if (n < 1 || k < 1)
+                    {
+                        MessageBox.Show("Для Формулы 5 параметры N и K должны быть целыми числами не меньше 1 (N ≥ 1 и K ≥ 1).", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
                     double p = Convert.ToDouble(R5TextP.Text);
                     double x = Convert.ToDouble(R5TextX.Text);
                     double f = Convert.ToDouble(R5TextF.Text);
                     double y = Convert.ToDouble(R5TextY.Text);
+
                     Formula5 calculator = new Formula5(n, k, p, x, f, y);
                     result = calculator.Calculate();
                     ResultText5.Text = $"Результат: {result:F}";
