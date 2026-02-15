@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Lab_rab2_ImamovaAR_BPI_23_02
 {
@@ -12,7 +10,6 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
         public MainWindow()
         {
             InitializeComponent();
-            ApplyTheme("LightTheme.xaml");
         }
 
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -65,12 +62,12 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
                 e.Handled = true;
             }
         }
+
         private void Input_GotFocus1(object sender, RoutedEventArgs e) { Radio1.IsChecked = true; }
         private void Input_GotFocus2(object sender, RoutedEventArgs e) { Radio2.IsChecked = true; }
         private void Input_GotFocus3(object sender, RoutedEventArgs e) { Radio3.IsChecked = true; }
         private void Input_GotFocus4(object sender, RoutedEventArgs e) { Radio4.IsChecked = true; }
         private void Input_GotFocus5(object sender, RoutedEventArgs e) { Radio5.IsChecked = true; }
-
 
         private void Calc_Click(object sender, RoutedEventArgs e)
         {
@@ -79,85 +76,76 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
 
             try
             {
+                var culture = System.Globalization.CultureInfo.GetCultureInfo("ru-RU");
+
                 if (Radio1.IsChecked.GetValueOrDefault())
                 {
-                    double a = Convert.ToDouble(R1TextA.Text);
-                    double f = Convert.ToDouble(((ComboBoxItem)R1ComboF.SelectedItem).Content);
-                    Formula1 calculator = new Formula1(a, f);
-                    result = calculator.Calculate();
-                    ResultText1.Text = $"Результат: {result:F}";
+                    double a = double.Parse(R1TextA.Text, culture);
+                    double f = double.Parse(((ComboBoxItem)R1ComboF.SelectedItem).Content.ToString(), culture);
+
+                    Formula1 f1 = new Formula1(a, f);
+                    result = f1.Calculate();
+
+                    ResultText1.Text = $"Результат: {result:F4}";
                     ResultText1.Visibility = Visibility.Visible;
                 }
                 else if (Radio2.IsChecked.GetValueOrDefault())
                 {
-                    double a = Convert.ToDouble(R2TextA.Text);
-                    double b = Convert.ToDouble(R2TextB.Text);
-                    double f = Convert.ToDouble(((ComboBoxItem)R2ComboF.SelectedItem).Content);
-                    Formula2 calculator = new Formula2(a, b, f);
-                    result = calculator.Calculate();
-                    ResultText2.Text = $"Результат: {result:F}";
+                    double a = double.Parse(R2TextA.Text, culture);
+                    double b = double.Parse(R2TextB.Text, culture);
+                    double f = double.Parse(((ComboBoxItem)R2ComboF.SelectedItem).Content.ToString(), culture);
+
+                    Formula2 f2 = new Formula2(a, b, f);
+                    result = f2.Calculate();
+
+                    ResultText2.Text = $"Результат: {result:F4}";
                     ResultText2.Visibility = Visibility.Visible;
                 }
                 else if (Radio3.IsChecked.GetValueOrDefault())
                 {
-                    double a = Convert.ToDouble(R3TextA.Text);
-                    double b = Convert.ToDouble(R3TextB.Text);
-                    double c = Convert.ToDouble(((ComboBoxItem)R3ComboC.SelectedItem).Content);
-                    double d = Convert.ToDouble(((ComboBoxItem)R3ComboD.SelectedItem).Content);
-                    Formula3 calculator = new Formula3(a, b, c, d);
-                    result = calculator.Calculate();
-                    ResultText3.Text = $"Результат: {result:F}";
+                    double a = double.Parse(R3TextA.Text, culture);
+                    double b = double.Parse(R3TextB.Text, culture);
+                    double c = double.Parse(((ComboBoxItem)R3ComboC.SelectedItem).Content.ToString(), culture);
+                    double d = double.Parse(((ComboBoxItem)R3ComboD.SelectedItem).Content.ToString(), culture);
+
+                    Formula3 f3 = new Formula3(a, b, c, d);
+                    result = f3.Calculate();
+
+                    ResultText3.Text = $"Результат: {result:F4}";
                     ResultText3.Visibility = Visibility.Visible;
                 }
                 else if (Radio4.IsChecked.GetValueOrDefault())
                 {
-                    double a = Convert.ToDouble(R4TextA.Text);
-                    int d = Int32.Parse(R4TextD.Text);
-                    double c = Convert.ToDouble(((ComboBoxItem)R4ComboC.SelectedItem).Content);
-                    Formula4 calculator = new Formula4(a, d, c);
-                    result = calculator.Calculate();
-                    ResultText4.Text = $"Результат: {result:F}";
+                    double a = double.Parse(R4TextA.Text, culture);
+                    double d_raw = double.Parse(R4TextD.Text, culture);
+                    double c = double.Parse(((ComboBoxItem)R4ComboC.SelectedItem).Content.ToString(), culture);
+
+                    Formula4 f4 = new Formula4(a, (int)d_raw, c);
+                    result = f4.Calculate();
+
+                    ResultText4.Text = $"Результат: {result:F4}";
                     ResultText4.Visibility = Visibility.Visible;
                 }
+            
                 else if (Radio5.IsChecked.GetValueOrDefault())
                 {
-                    int n;
-                    int k;
+                    int n = int.Parse(R5TextN.Text);
+                    int k = int.Parse(R5TextK.Text);
+                    double f = double.Parse(R5TextF.Text, culture);
+                    double p = double.Parse(R5TextP.Text, culture);
+                    double x = double.Parse(R5TextX.Text, culture);
+                    double y = double.Parse(R5TextY.Text, culture);
 
-                    if (!Int32.TryParse(R5TextN.Text, out n) || !Int32.TryParse(R5TextK.Text, out k))
-                    {
-                        MessageBox.Show("N и K должны быть целыми числами.", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+                    Formula5 f5 = new Formula5(n, k, f, p, x, y);
+                    result = f5.Calculate();
 
-                    if (n < 1 || k < 1)
-                    {
-                        MessageBox.Show("Для Формулы 5 параметры N и K должны быть целыми числами не меньше 1 (N ≥ 1 и K ≥ 1).", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
-                    }
-
-                    double p = Convert.ToDouble(R5TextP.Text);
-                    double x = Convert.ToDouble(R5TextX.Text);
-                    double f = Convert.ToDouble(R5TextF.Text);
-                    double y = Convert.ToDouble(R5TextY.Text);
-
-                    Formula5 calculator = new Formula5(n, k, p, x, f, y);
-                    result = calculator.Calculate();
-                    ResultText5.Text = $"Результат: {result:F}";
+                    ResultText5.Text = $"Результат: {result:F4}";
                     ResultText5.Visibility = Visibility.Visible;
                 }
-                else
-                {
-                    MessageBox.Show("Пожалуйста, выберите одну из формул для расчета.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Ошибка ввода: Убедитесь, что все поля заполнены корректными числами.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Произошла ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
 
@@ -169,38 +157,26 @@ namespace Lab_rab2_ImamovaAR_BPI_23_02
             ResultText4.Visibility = Visibility.Collapsed;
             ResultText5.Visibility = Visibility.Collapsed;
         }
+
         private void ChangeTheme_Click(object sender, RoutedEventArgs e)
         {
             Button themeButton = sender as Button;
-            if (themeButton == null) return;
-            string themeUri = themeButton.Tag.ToString();
-            ApplyTheme(themeUri);
-        }
+            if (themeButton == null || themeButton.Tag == null) return;
 
-        private void ApplyTheme(string themeUri)
-        {
-            ResourceDictionary newTheme = new ResourceDictionary()
-            {
-                Source = new Uri(themeUri, UriKind.Relative)
-            };
+            string themeFile = themeButton.Tag.ToString();
 
-            var dictionaries = this.Resources.MergedDictionaries;
-            var oldTheme = dictionaries.FirstOrDefault(d => d.Source != null && d.Source.OriginalString.Contains("Theme.xaml"));
-            if (oldTheme != null)
+            try
             {
-                dictionaries.Remove(oldTheme);
+                ResourceDictionary newTheme = new ResourceDictionary();
+                newTheme.Source = new Uri(themeFile, UriKind.Relative);
+                Application.Current.Resources.MergedDictionaries.Clear();
+                Application.Current.Resources.MergedDictionaries.Add(newTheme);
+                this.Resources.MergedDictionaries.Clear();
             }
-            dictionaries.Add(newTheme);
-            if (this.Resources.Contains("WindowBackgroundBrush"))
+            catch (Exception ex)
             {
-                this.Background = (Brush)this.Resources["WindowBackgroundBrush"];
+                MessageBox.Show($"Ошибка загрузки темы: {ex.Message}");
             }
-        }
-        
-
-        private void R1TextA_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

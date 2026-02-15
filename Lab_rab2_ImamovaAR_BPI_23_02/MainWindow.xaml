@@ -11,16 +11,52 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="LightTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="FormulaBorderStyle" TargetType="Border">
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderColorBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+
+            <Style TargetType="GroupBox">
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Margin" Value="0,2"/>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"/>
+                <Setter Property="Height" Value="22"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0,0,10,0"/>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="2,0,5,0"/>
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
+                <Setter Property="Height" Value="22"/>
+                <Setter Property="Margin" Value="0,0,10,0"/>
+            </Style>
+
+            <Style TargetType="RadioButton">
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
+            </Style>
+
         </ResourceDictionary>
     </Window.Resources>
 
     <DockPanel Margin="10">
-
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
-            <Button Content="Светлая тема" Click="ChangeTheme_Click" Tag="LightTheme.xaml" Width="100"/>
-            <Button Content="Темная тема" Click="ChangeTheme_Click" Tag="DarkTheme.xaml" Width="100"/>
+            <Button Content="Светлая тема" Click="ChangeTheme_Click" Tag="LightTheme.xaml" Width="110" />
+            <Button Content="Темная тема" Click="ChangeTheme_Click" Tag="DarkTheme.xaml" Width="110"/>
         </StackPanel>
 
         <Button Content="Считать"
@@ -28,7 +64,9 @@
                 Margin="0,15,5,5"
                 Click="Calc_Click"
                 DockPanel.Dock="Bottom"
-                HorizontalAlignment="Right"/>
+                HorizontalAlignment="Right"
+                Height="30"
+                FontWeight="Bold"/>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -38,30 +76,37 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" Grid.Column="0" BorderBrush="{DynamicResource BorderColorBrush}" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
-                <GroupBox Header="Формула 1" FontWeight="Bold">
+            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource FormulaBorderStyle}">
+                <GroupBox Header="Формула 1">
                     <StackPanel>
                         <RadioButton Name="Radio1" GroupName="FormulaGroup" IsChecked="True" Margin="0,0,0,5"/>
-                        <Image Name="ImageP1" Height="30" Margin="0,0,0,5" HorizontalAlignment="Left"
-                               Source="/Resources/Formula1.png"/>
-
-                        <Grid Margin="0,5,0,5">
+                        <Image Name="ImageP1" Height="30" Margin="0,0,0,5" HorizontalAlignment="Left" Source="/Resources/Formula1.png"/>
+                        <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-
                             <Label Content="a:" Grid.Column="0"/>
-                            <TextBox Text="0,00" Width="70" Name="R1TextA" Margin="0,0,10,0" Grid.Column="1" HorizontalAlignment="Left" 
-                                     GotFocus="Input_GotFocus1" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown" TextChanged="R1TextA_TextChanged"/>
-
+                            <TextBox Text="0,00" 
+                                     Width="70" 
+                                     Name="R1TextA" 
+                                     Grid.Column="1" 
+                                     HorizontalAlignment="Left" 
+                                     GotFocus="Input_GotFocus1" 
+                                     PreviewTextInput="TextBox_PreviewTextInput" 
+                                     PreviewKeyDown="TextBox_PreviewKeyDown" />
                             <Label Content="f:" Grid.Column="2"/>
-                            <ComboBox SelectedIndex="0" Name="R1ComboF" Margin="0,0,10,0" Width="70" Grid.Column="3" HorizontalAlignment="Left" GotFocus="Input_GotFocus1">
+                            <ComboBox SelectedIndex="0" 
+                                      Name="R1ComboF" 
+                                      Width="70" 
+                                      Grid.Column="3" 
+                                      HorizontalAlignment="Left" 
+                                      GotFocus="Input_GotFocus1">
                                 <ComboBoxItem Content="4"/>
                                 <ComboBoxItem Content="5"/>
                                 <ComboBoxItem Content="6"/>
@@ -70,20 +115,26 @@
                                 <ComboBoxItem Content="9"/>
                             </ComboBox>
                         </Grid>
-
-                        <TextBlock Name="ResultText1" Visibility="Collapsed" FontWeight="Bold" Margin="0,5,0,0"/>
+                        <TextBlock Name="ResultText1" 
+                                   Visibility="Collapsed" 
+                                   FontWeight="Bold" 
+                                   Foreground="{DynamicResource BorderColorBrush}"/>
                     </StackPanel>
                 </GroupBox>
             </Border>
 
-            <Border Grid.Row="0" Grid.Column="1" BorderBrush="{DynamicResource BorderColorBrush}" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
-                <GroupBox Header="Формула 2" FontWeight="Bold">
+            <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource FormulaBorderStyle}">
+                <GroupBox Header="Формула 2">
                     <StackPanel>
-                        <RadioButton Name="Radio2" GroupName="FormulaGroup" Margin="0,0,0,5"/>
-                        <Image Name="ImageP2" Height="23" Margin="0,0,0,5" HorizontalAlignment="Left"
+                        <RadioButton Name="Radio2" 
+                                     GroupName="FormulaGroup" 
+                                     Margin="0,0,0,5"/>
+                        <Image Name="ImageP2" 
+                               Height="23" 
+                               Margin="0,0,0,5" 
+                               HorizontalAlignment="Left" 
                                Source="/Resources/Formula2.png"/>
-
-                        <Grid Margin="0,5,0,5">
+                        <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -92,37 +143,46 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-
                             <Label Content="a:" Grid.Column="0"/>
-                            <TextBox Text="0,00" Width="70" Name="R2TextA" Margin="0,0,10,0" Grid.Column="1" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus2" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
+                            <TextBox Text="0,00" Width="60" Name="R2TextA" 
+                                     Grid.Column="1" 
+                                     HorizontalAlignment="Left" 
+                                     GotFocus="Input_GotFocus2" 
+                                     PreviewTextInput="TextBox_PreviewTextInput" 
+                                     PreviewKeyDown="TextBox_PreviewKeyDown"/>
                             <Label Content="b:" Grid.Column="2"/>
-                            <TextBox Text="0,00" Width="70" Name="R2TextB" Margin="0,0,10,0" Grid.Column="3" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus2" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
+                            <TextBox Text="0,00"
+                                     Width="60" 
+                                     Name="R2TextB" 
+                                     Grid.Column="3" 
+                                     HorizontalAlignment="Left" 
+                                     GotFocus="Input_GotFocus2" 
+                                     PreviewTextInput="TextBox_PreviewTextInput" 
+                                     PreviewKeyDown="TextBox_PreviewKeyDown"/>
                             <Label Content="f:" Grid.Column="4"/>
-                            <ComboBox Name="R2ComboF" SelectedIndex="0" Width="70" Margin="0,0,10,0" Grid.Column="5" HorizontalAlignment="Left" GotFocus="Input_GotFocus2">
+                            <ComboBox Name="R2ComboF" 
+                                      SelectedIndex="0" 
+                                      Width="60" 
+                                      Grid.Column="5" 
+                                      HorizontalAlignment="Left" 
+                                      GotFocus="Input_GotFocus2">
                                 <ComboBoxItem Content="10"/>
                                 <ComboBoxItem Content="20"/>
                                 <ComboBoxItem Content="30"/>
                                 <ComboBoxItem Content="40"/>
                             </ComboBox>
                         </Grid>
-
-                        <TextBlock Name="ResultText2" Visibility="Collapsed" FontWeight="Bold" Margin="0,5,0,0"/>
+                        <TextBlock Name="ResultText2" Visibility="Collapsed" FontWeight="Bold"/>
                     </StackPanel>
                 </GroupBox>
             </Border>
 
-            <Border Grid.Row="1" Grid.Column="0" BorderBrush="{DynamicResource BorderColorBrush}" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
-                <GroupBox Header="Формула 3" FontWeight="Bold">
+            <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource FormulaBorderStyle}">
+                <GroupBox Header="Формула 3">
                     <StackPanel>
                         <RadioButton Name="Radio3" GroupName="FormulaGroup" Margin="0,0,0,5"/>
-                        <Image Name="ImageP3" Height="30" Margin="0,0,0,5" HorizontalAlignment="Left"
-                               Source="/Resources/Formula3.png"/>
-
-                        <Grid Margin="0,5,0,5">
+                        <Image Name="ImageP3" Height="30" Margin="0,0,0,5" HorizontalAlignment="Left" Source="/Resources/Formula3.png"/>
+                        <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -133,42 +193,61 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-
                             <Label Content="a:" Grid.Column="0"/>
-                            <TextBox Text="0,00" Width="50" Name="R3TextA" Margin="0,0,5,0" Grid.Column="1" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus3" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
+                            <TextBox Text="0,00" 
+                                     Width="45" 
+                                     Name="R3TextA" 
+                                     Grid.Column="1"
+                                     HorizontalAlignment="Left" 
+                                     GotFocus="Input_GotFocus3" 
+                                     PreviewTextInput="TextBox_PreviewTextInput" 
+                                     PreviewKeyDown="TextBox_PreviewKeyDown"/>
                             <Label Content="b:" Grid.Column="2"/>
-                            <TextBox Text="0,00" Width="50" Name="R3TextB" Margin="0,0,5,0" Grid.Column="3" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus3" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
+                            <TextBox Text="0,00" 
+                                     Width="45" 
+                                     Name="R3TextB" 
+                                     Grid.Column="3" 
+                                     HorizontalAlignment="Left" 
+                                     GotFocus="Input_GotFocus3" 
+                                     PreviewTextInput="TextBox_PreviewTextInput" 
+                                     PreviewKeyDown="TextBox_PreviewKeyDown"/>
                             <Label Content="c:" Grid.Column="4"/>
-                            <ComboBox SelectedIndex="0" Name="R3ComboC" Width="50" Margin="0,0,5,0" Grid.Column="5" HorizontalAlignment="Left" GotFocus="Input_GotFocus3">
+                            <ComboBox SelectedIndex="0" 
+                                      Name="R3ComboC" 
+                                      Width="45" 
+                                      Grid.Column="5" 
+                                      HorizontalAlignment="Left" 
+                                      GotFocus="Input_GotFocus3">
                                 <ComboBoxItem Content="0"/>
                                 <ComboBoxItem Content="1"/>
                             </ComboBox>
-
                             <Label Content="d:" Grid.Column="6"/>
-                            <ComboBox SelectedIndex="0" Name="R3ComboD" Margin="0,0,10,0" Width="60" Grid.Column="7" HorizontalAlignment="Left" GotFocus="Input_GotFocus3">
+                            <ComboBox SelectedIndex="0" 
+                                      Name="R3ComboD" 
+                                      Width="55" 
+                                      Grid.Column="7" 
+                                      HorizontalAlignment="Left" 
+                                      GotFocus="Input_GotFocus3">
                                 <ComboBoxItem Content="-1"/>
                                 <ComboBoxItem Content="0"/>
                                 <ComboBoxItem Content="1"/>
                             </ComboBox>
                         </Grid>
-
-                        <TextBlock Name="ResultText3" Visibility="Collapsed" FontWeight="Bold" Margin="0,5,0,0"/>
+                        <TextBlock Name="ResultText3" Visibility="Collapsed" FontWeight="Bold"/>
                     </StackPanel>
                 </GroupBox>
             </Border>
 
-            <Border Grid.Row="1" Grid.Column="1" BorderBrush="{DynamicResource BorderColorBrush}" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
-                <GroupBox Header="Формула 4" FontWeight="Bold">
+            <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource FormulaBorderStyle}">
+                <GroupBox Header="Формула 4">
                     <StackPanel>
                         <RadioButton Name="Radio4" GroupName="FormulaGroup" Margin="0,0,0,5"/>
-                        <Image Name="ImageP4" Height="60" Margin="0,0,0,5" HorizontalAlignment="Left"
+                        <Image Name="ImageP4" 
+                               Height="60" 
+                               Margin="0,0,0,5" 
+                               HorizontalAlignment="Left" 
                                Source="/Resources/Formula4.png"/>
-
-                        <Grid Margin="0,5,0,5">
+                        <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -177,9 +256,13 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-
                             <Label Content="c:" Grid.Column="0"/>
-                            <ComboBox SelectedIndex="0" Name="R4ComboC" Width="70" Margin="0,0,10,0" Grid.Column="1" HorizontalAlignment="Left" GotFocus="Input_GotFocus4">
+                            <ComboBox SelectedIndex="0" 
+                                      Name="R4ComboC" 
+                                      Width="60" 
+                                      Grid.Column="1" 
+                                      HorizontalAlignment="Left" 
+                                      GotFocus="Input_GotFocus4">
                                 <ComboBoxItem Content="0"/>
                                 <ComboBoxItem Content="1"/>
                                 <ComboBoxItem Content="2"/>
@@ -187,29 +270,22 @@
                                 <ComboBoxItem Content="4"/>
                                 <ComboBoxItem Content="5"/>
                             </ComboBox>
-
                             <Label Content="d:" Grid.Column="2"/>
-                            <TextBox Text="0,00" Width="70" Name="R4TextD" Margin="0,0,10,0" Grid.Column="3" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus4" PreviewTextInput="TextBox_PreviewOnlyDigits" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
+                            <TextBox Text="0,00" Width="60" Name="R4TextD" Grid.Column="3" HorizontalAlignment="Left" GotFocus="Input_GotFocus4" PreviewTextInput="TextBox_PreviewOnlyDigits" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                             <Label Content="a:" Grid.Column="4"/>
-                            <TextBox Text="0,00" Width="70" Name="R4TextA" Margin="0,0,10,0" Grid.Column="5" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus4" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                            <TextBox Text="0,00" Width="60" Name="R4TextA" Grid.Column="5" HorizontalAlignment="Left" GotFocus="Input_GotFocus4" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                         </Grid>
-
-                        <TextBlock Name="ResultText4" Visibility="Collapsed" FontWeight="Bold" Margin="0,5,0,0"/>
+                        <TextBlock Name="ResultText4" Visibility="Collapsed" FontWeight="Bold"/>
                     </StackPanel>
                 </GroupBox>
             </Border>
 
-            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource BorderColorBrush}" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
-                <GroupBox Header="Формула 5" FontWeight="Bold">
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource FormulaBorderStyle}">
+                <GroupBox Header="Формула 5">
                     <StackPanel>
                         <RadioButton Name="Radio5" GroupName="FormulaGroup" Margin="0,0,0,5"/>
-                        <Image Name="ImageP5" Height="40" Margin="0,0,0,5" HorizontalAlignment="Left"
-                               Source="/Resources/Formula5.png"/>
-
-                        <Grid Margin="0,5,0,5">
+                        <Image Name="ImageP5" Height="40" Margin="0,0,0,5" HorizontalAlignment="Left" Source="/Resources/Formula5.png"/>
+                        <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -224,35 +300,23 @@
                             </Grid.RowDefinitions>
 
                             <Label Content="N:" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox Text="10" Width="40" Name="R5TextN" Margin="0,0,10,5" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewOnlyDigits" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
+                            <TextBox Text="10" Width="60" Name="R5TextN" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewOnlyDigits" PreviewKeyDown="TextBox_PreviewKeyDown" Margin="0,0,10,5"/>
                             <Label Content="K:" Grid.Row="0" Grid.Column="2"/>
-                            <TextBox Text="10" Width="40" Name="R5TextK" Margin="0,0,10,5" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewOnlyDigits" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
+                            <TextBox Text="10" Width="60" Name="R5TextK" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewOnlyDigits" PreviewKeyDown="TextBox_PreviewKeyDown" Margin="0,0,10,5"/>
                             <Label Content="f:" Grid.Row="0" Grid.Column="4"/>
-                            <TextBox Text="1,0" Width="40" Name="R5TextF" Margin="0,0,0,5" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                            <TextBox Text="1,0" Width="60" Name="R5TextF" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Left" GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown" Margin="0,0,0,5"/>
 
                             <Label Content="p:" Grid.Row="1" Grid.Column="0"/>
-                            <TextBox Text="1,0" Width="40" Name="R5TextP" Margin="0,0,10,0" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
+                            <TextBox Text="1,0" Width="60" Name="R5TextP" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                             <Label Content="x:" Grid.Row="1" Grid.Column="2"/>
-                            <TextBox Text="1,0" Width="40" Name="R5TextX" Margin="0,0,10,0" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-
+                            <TextBox Text="1,0" Width="60" Name="R5TextX" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                             <Label Content="y:" Grid.Row="1" Grid.Column="4"/>
-                            <TextBox Text="1,0" Width="40" Name="R5TextY" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left"
-                                     GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                            <TextBox Text="1,0" Width="60" Name="R5TextY" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" GotFocus="Input_GotFocus5" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                         </Grid>
-
-                        <TextBlock Name="ResultText5" Visibility="Collapsed" FontWeight="Bold" Margin="0,5,0,0"/>
+                        <TextBlock Name="ResultText5" Visibility="Collapsed" FontWeight="Bold"/>
                     </StackPanel>
                 </GroupBox>
             </Border>
-
         </Grid>
     </DockPanel>
 </Window>

@@ -11,6 +11,8 @@
     <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#efecd1" />
     <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="#FFE7E1BB"/>
     <SolidColorBrush x:Key="AccentColorSemiTransparentBrush" Color="#AA98001D"/>
+    <SolidColorBrush x:Key="PrimaryTextBrush" Color="#FFE7E1BB"/>
+    
     <Color x:Key="HighlightColor">#FF98001D</Color>
     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource HighlightColor}" />
     <Color x:Key="{x:Static SystemColors.HighlightColorKey}" A="255" R="152" G="0" B="29" />

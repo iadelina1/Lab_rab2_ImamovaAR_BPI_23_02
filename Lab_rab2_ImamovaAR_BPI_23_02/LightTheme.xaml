@@ -10,12 +10,13 @@
     <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#FFFD5563" />
     <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="#FF44B800"/>
     <SolidColorBrush x:Key="ButtonPressedBackgroundBrush" Color="#FF2B7F00"/>
+    <SolidColorBrush x:Key="PrimaryTextBrush" Color="#FF36A606" />
 
     <Color x:Key="HighlightColor">#FF36A606</Color>
 
     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource HighlightColor}" />
 
-    <Color x:Key="{x:Static SystemColors.HighlightColorKey}" A="255" R="54" G="166" B="6" />
+
 
     <Style x:Key="BaseStyle" TargetType="Control">
         <Setter Property="FontFamily" Value="Segoe UI"/>
